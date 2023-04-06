@@ -101,6 +101,12 @@ export default class GUI {
 		 * @type {boolean}
 		 */
 		this._hidden = false;
+		
+		/**
+		 * Used to determine if touchStyles should be applied to folders of this GUI.
+		 * @type {boolean}
+		 */
+		this._touchStyles = true;
 
 		/**
 		 * The outermost container element.
@@ -142,6 +148,7 @@ export default class GUI {
 
 		this.title( title );
 
+		this._touchStyles = touchStyles;
 		if ( touchStyles ) {
 			this.domElement.classList.add( 'allow-touch-styles' );
 		}
@@ -278,7 +285,7 @@ export default class GUI {
 	 * @returns {GUI}
 	 */
 	addFolder( title ) {
-		const folder = new GUI( { parent: this, title } );
+		const folder = new GUI( { parent: this, title, touchStyles: this._touchStyles } );
 		if ( this.root._closeFolders ) folder.close();
 		return folder;
 	}
